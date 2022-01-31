@@ -1,0 +1,21 @@
+#!/bin/sh
+
+PAPE_PATH="$HOME/general/media/papes/"
+PAPE=$(ls $PAPE_PATH | dmenu -l 15 -p "Wallpaper: ")
+WALLPAPER=$PAPE_PATH$PAPE 
+
+SET () {
+cp $WALLPAPER .local/pape
+xwallpaper --zoom .local/pape 
+}
+SEE () {
+sxiv $WALLPAPER
+echo "Set wallpaper? [S/n] "
+read opt
+[ "$opt" = "s" ] && SET
+[ "$opt" = "S" ] && SET
+[ "$opt" = "n" ] && echo "exiting..."
+}
+
+[ "$1" = "--set" ] && SET
+[ "$1" = "--see" ] &&  SEE
